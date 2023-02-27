@@ -16,7 +16,6 @@ public class PacketHandler extends SimpleChannelInboundHandler<Packet> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Packet msg) throws Exception {
 
-
     }
 }
 

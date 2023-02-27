@@ -8,7 +8,7 @@ import java.nio.channels.SocketChannel;
 
 public interface ILeapTalkServer {
 
-    void startServer(int port,boolean checkAuth);
+    void startServer(String hostname,int port,boolean checkAuth) throws Exception;
 
     void shutdown();
 

@@ -1,3 +1,7 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
 allprojects {
     group = 'it.raniero'
     version = '1.0.0'
@@ -10,6 +14,7 @@ allprojects {
         compileOnly 'org.projectlombok:lombok:1.18.24'
         annotationProcessor 'org.projectlombok:lombok:1.18.24'
         implementation 'org.mongodb:mongo-java-driver:3.12.10'
+
     }
 
     repositories {
@@ -28,6 +33,7 @@ subprojects {
     }
 }
 
+/*
 task allJar(type: Jar, dependsOn: subprojects.assemble) {
     baseName = 'leaptalk'
     from configurations.runtimeClasspath.files.collect { if(it.isDirectory()) it else zipTree(it)}
@@ -37,11 +43,25 @@ task allJar(type: Jar, dependsOn: subprojects.assemble) {
             zipTree(it)
         }
     }
+}*/
+dependencies {
+    implementation subprojects
 }
 
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'it.raniero.leaptalk.LeapTalkApplication'
+        )
+    }
+}
+
+/*
 artifacts {
     archives allJar
 }
+ */
 
 tasks.withType(Jar) {
     eachFile {

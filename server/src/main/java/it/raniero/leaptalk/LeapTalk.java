@@ -10,10 +10,28 @@ public class LeapTalk implements ILeapTalk {
     @Getter
     private LeapTalkServer server;
 
+    @Getter
+    private Thread networkThread;
+
+
     @Override
     public void start(StartupSettings settings) {
-        server = new LeapTalkServer();
-        server.startServer(settings.getPort(),settings.isCheckAuth());
+        server = new LeapTalkServer(this);
+        networkThread = new Thread(() -> {
+
+            try {
+
+                server.startServer(settings.getSelectedInterface(),settings.getPort(),settings.isCheckAuth());
+
+            } catch (Exception ex) {
+
+                ex.printStackTrace();
+
+            }
+        });
+
+        networkThread.start();
+
     }
 
     @Override
